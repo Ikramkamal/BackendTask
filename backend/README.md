@@ -41,3 +41,13 @@ For this task, a Strategy Pattern is applied for survey generation. surveyGenera
 
 <img width="1003" height="824" alt="Blank diagram" src="https://github.com/user-attachments/assets/2daaf4e3-4e04-4661-a3c7-bb69669f6637" />
 
+
+# Future Improvements
+* Dockerization: Due to time limitations, the Dockerization of this application has not been completed. The goal of Dockerization is to make the application easier to build and run across different environments. As a future improvement, the application will be containerized to ensure consistency, isolation, portability, and scalability.
+  
+* Testing: To ensure high code quality, it is important to introduce unit tests and automate the testing process using GitHub Actions or another CI/CD platform. This will help catch issues early and maintain reliability as the project evolves.
+  
+* Authentification: An authentication system could be added to allow users to securely log in, save their surveys within their sessions, and track their progress over time. This would enhance personalization and data security.
+  
+* UI/UX improvement: For the purpose of this task, the focus was primarily on the backend. As a future improvement, the user interface and user experience can be enhanced to provide a more intuitive, accessible, and visually appealing design. This would make the application easier to use and more engaging for end users.
+
