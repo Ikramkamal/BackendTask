@@ -1,6 +1,6 @@
 # Survey Backend
 
-Simple backend structure using Flask for generating survey. It uses PostgreSQL for storage and provides RESTful endpoints for interacting with surveys.
+Simple backend structure using Flask for generating survey. It uses PostgreSQL for storage and provides RESTful endpoints for interacting with surveys. For this project, Flask was chosen for its simplicity, flexibility and extensivity which is perfect for this small size project. 
 
 # Getting Started
 
