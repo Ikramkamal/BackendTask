@@ -1,7 +1,11 @@
+// This component handles user input for survey description,
+// sends it to the backend for AI-generated survey questions, 
+// and updates the state with the generated questions.
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const GenerateSurveyButtonAndPrompt = ({ setSurveyTitle, setQuestions, setSurveyDescription }) => {
+const GenerateSurvey = ({ setSurveyTitle, setQuestions, setSurveyDescription }) => {
   const [description, setDescription] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -11,6 +15,7 @@ const GenerateSurveyButtonAndPrompt = ({ setSurveyTitle, setQuestions, setSurvey
     setIsGenerating(true);
 
     try {
+      //POST request to send survey description
       const response = await fetch("http://127.0.0.1:5000/surveys/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -21,13 +26,39 @@ const GenerateSurveyButtonAndPrompt = ({ setSurveyTitle, setQuestions, setSurvey
 
       setSurveyTitle(data.survey.title);
       setSurveyDescription(data.description);
-      setQuestions(data.survey.questions);
+      setQuestions(
+        //Formating the genrated questions to follow frontend struture
+        (data.survey.questions || []).map((q, i) => {
+          const typeMap = {
+            "short answer": "shortAnswer",
+            "long answer": "openQuestion",
+            "single choice": "singleChoice",
+            "multiple choice": "multipleChoice",
+            "rating": "scale",
+            "nps": "npsScore",
+        };
 
+        return {
+          id: i.toString(),
+          title: q.text ?? "",
+          type: typeMap[q.type] ?? "shortAnswer",
+          options: (q.options || []).map((opt, j) => ({
+            id: `${i}-${j}`,     
+            text: opt,          
+          })),
+          saved: true,
+        };
+      })
+    );
       setDescription("");
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("Error generating survey:", error);
       alert("Something went wrong while generating the survey.");
-    } finally {
+    } 
+    
+    finally {
       setIsGenerating(false);
     }
   };
@@ -53,10 +84,10 @@ const GenerateSurveyButtonAndPrompt = ({ setSurveyTitle, setQuestions, setSurvey
   );
 };
 
-GenerateSurveyButtonAndPrompt.propTypes = {
+GenerateSurvey.propTypes = {
   setSurveyTitle: PropTypes.func.isRequired,
   setQuestions: PropTypes.func.isRequired,
   setSurveyDescription: PropTypes.func.isRequired,
 };
 
-export default GenerateSurveyButtonAndPrompt;
+export default GenerateSurvey;

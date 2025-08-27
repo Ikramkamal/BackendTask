@@ -30,6 +30,14 @@ const CreateSurvey = () => {
   return (
     <div className="flex h-full font-switzer lg:overflow-auto scrollbar-style flex-col gap-4 sm:gap-6 sm:p-4">
       <div className="flex flex-col space-y-6">
+        
+        {/* Generate survey button */}
+          <GenerateSurvey
+          setSurveyTitle={setSurveyTitle}
+          setSurveyDescription={setSurveyDescription}
+          setQuestions={setQuestions}
+        />
+        
         {/* Title Input */}
         <motion.div
           whileHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)" }}
@@ -107,22 +115,7 @@ const CreateSurvey = () => {
           <PlusIcon2 className="h-4 w-4" />
           <span className="font-medium text-base">Add Question</span>
         </motion.button>
-        
-        {/* Generate survey button */}
-          <GenerateSurvey
-          setSurveyTitle={setSurveyTitle}
-          setSurveyDescription={setSurveyDescription}
-          setQuestions={setQuestions}
-        />
-        {/* <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 6px 20px rgba(108, 93, 211, 0.3)" }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setQuestions(defaultQuestionType)}
-          className="bg-[#6851a7] flex gap-2 items-center text-white py-3 px-6 rounded-full shadow-sm transition-all duration-300"
-        >
-          <PlusIcon2 className="h-4 w-4" />
-          <span className="font-medium text-base">Generate Survey</span>
-        </motion.button> */}
+  
       </motion.div>
     </div>
   );

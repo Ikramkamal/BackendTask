@@ -1,6 +1,8 @@
 from extensions import db
 from sqlalchemy.dialects.postgresql import JSON
 
+
+# Survey model
 class Survey(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.Text, unique=True, nullable=False)
