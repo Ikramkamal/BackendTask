@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
 from models.survey import Survey
+from surveyGenerator import generate_survey_from_description  
 
 survey_bp = Blueprint("surveys", __name__)
 
@@ -12,6 +13,7 @@ def generate_survey():
     if not description:
         return jsonify({"error": "Description is required"}), 400
 
+    # Check if survey already exists in DB
     existing = Survey.query.filter_by(description=description).first()
     if existing:
         return jsonify({
@@ -20,9 +22,20 @@ def generate_survey():
             "cached": True
         })
 
-    generated = {"title": "", "questions": []}
-    new_survey = Survey(description=description, survey_json=generated)
+    try:
+        generated_survey = generate_survey_from_description(description)
+
+    except Exception as e:
+        print(f"Error generating survey: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+    # Save to DB
+    new_survey = Survey(description=description, survey_json=generated_survey)
     db.session.add(new_survey)
     db.session.commit()
 
-    return jsonify({"description": description, "survey": generated, "cached": False})
+    return jsonify({
+        "description": description,
+        "survey": generated_survey,
+        "cached": False
+    })

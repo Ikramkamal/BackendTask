@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ikramkml@localhost:5432/te
 
 db.init_app(app)
 
-
+from models.survey import Survey
 from routes.surveyRoutes import survey_bp
 app.register_blueprint(survey_bp, url_prefix="/surveys")
 
