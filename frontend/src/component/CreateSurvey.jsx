@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { PlusIcon2 } from "./Icons";
 import QuestionList from "./QuestionList";
 import { motion } from "framer-motion";
+import GenerateSurvey from "./GenerateSurvey";
 
 const CreateSurvey = () => {
   const {
@@ -12,7 +13,8 @@ const CreateSurvey = () => {
     setSurveyDescription,
     surveyTitle,
     surveyDescription,
-    addNewQuestion,
+    setQuestions,
+    addNewQuestion
   } = useCreateSurveyProvider();
 
   const [titleLength, setTitleLength] = useState(0);
@@ -105,6 +107,22 @@ const CreateSurvey = () => {
           <PlusIcon2 className="h-4 w-4" />
           <span className="font-medium text-base">Add Question</span>
         </motion.button>
+        
+        {/* Generate survey button */}
+          <GenerateSurvey
+          setSurveyTitle={setSurveyTitle}
+          setSurveyDescription={setSurveyDescription}
+          setQuestions={setQuestions}
+        />
+        {/* <motion.button
+          whileHover={{ scale: 1.05, boxShadow: "0 6px 20px rgba(108, 93, 211, 0.3)" }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setQuestions(defaultQuestionType)}
+          className="bg-[#6851a7] flex gap-2 items-center text-white py-3 px-6 rounded-full shadow-sm transition-all duration-300"
+        >
+          <PlusIcon2 className="h-4 w-4" />
+          <span className="font-medium text-base">Generate Survey</span>
+        </motion.button> */}
       </motion.div>
     </div>
   );

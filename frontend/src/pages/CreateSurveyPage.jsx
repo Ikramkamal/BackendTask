@@ -2,8 +2,26 @@ import DashboardLayout from "../component/DashboardLayout";
 import CreateSurvey from "../component/CreateSurvey";
 import CreateSurveySidebar from "../component/CreateSurveySidebar";
 import Header from "../component/Header";
+import { useState, useEffect} from "react";
 
 const CreateSurveyPage = ({ surveySeriesId = "defaultId" }) => {
+
+
+  //TEST
+  const [data, setData] = useState([{}]);
+
+  useEffect(() => {
+     fetch ("/members").then(
+      res => res.json()
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, []);
+
+
   return (
     <DashboardLayout>
       <div className="flex flex-col w-full h-full overflow-hidden">
@@ -20,6 +38,7 @@ const CreateSurveyPage = ({ surveySeriesId = "defaultId" }) => {
               <CreateSurveySidebar surveySeriesId={surveySeriesId} />
             </div>
             <CreateSurvey />
+            
           </div>
           <div className="hidden lg:block min-w-[280px] p-3 max-w-[280px] overflow-auto scrollbar-style h-[calc(100vh-89px)]">
             <CreateSurveySidebar surveySeriesId={surveySeriesId} />
